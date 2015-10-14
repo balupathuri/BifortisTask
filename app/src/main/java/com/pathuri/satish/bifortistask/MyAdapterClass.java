@@ -40,8 +40,8 @@ public View getView(int position, View convertView, ViewGroup parent) {
         row = inflater.inflate(layoutResourceId, parent, false);
 
         holder = new ImageHolder();
-        holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
-       holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
+       // holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
+        holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
         row.setTag(holder);
         }
         else
@@ -50,7 +50,7 @@ public View getView(int position, View convertView, ViewGroup parent) {
         }
 
         PojoClass picture = data.get(position);
-        holder.txtTitle.setText(picture._name);
+       // holder.txtTitle.setText(picture._name);
         //convert byte to bitmap take from contact class
 
         byte[] outImage=picture._image;
