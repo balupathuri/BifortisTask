@@ -4,7 +4,6 @@ package com.pathuri.satish.bifortistask;
  * Created by Satish on 14-Oct-15.
  */
 public class PojoClass {
-
     // private variables
     int _id;
     String _name;
@@ -22,12 +21,14 @@ public class PojoClass {
         this._image = image;
 
     }
-
-
-    // constructor
     public PojoClass(String name, byte[] image) {
         this._name = name;
         this._image = image;
+
+    }
+    public PojoClass(int keyId) {
+        this._id = keyId;
+
     }
 
     // getting ID
@@ -60,4 +61,3 @@ public class PojoClass {
         this._image = image;
     }
 }
-

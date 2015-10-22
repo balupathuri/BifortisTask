@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class DataBaseHandler extends SQLiteOpenHelper {
 
+
         // All Static variables
         // Database Version
         private static final int DATABASE_VERSION = 1;
@@ -22,7 +23,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         private static final String DATABASE_NAME = "imagedb";
 
         // Contacts table name
-        private static final String TABLE_IMAGES = "images";
+        private static final String TABLE_CONTACTS = "contacts";
 
         // Contacts Table Columns names
         private static final String KEY_ID = "id";
@@ -36,23 +37,25 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // Creating Tables
         @Override
         public void onCreate(SQLiteDatabase db) {
-                String CREATE_IMAGES_TABLE = "CREATE TABLE " + TABLE_IMAGES + "("
+                String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
                         + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
                         + KEY_IMAGE + " BLOB" + ")";
-                db.execSQL(CREATE_IMAGES_TABLE);
+                db.execSQL(CREATE_CONTACTS_TABLE);
         }
 
         // Upgrading database
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
                 // Drop older table if existed
-                db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMAGES);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
 
                 // Create tables again
                 onCreate(db);
         }
 
-
+        /**
+         * All CRUD(Create, Read, Update, Delete) Operations
+         */
 
         public// Adding new contact
         void addContact(PojoClass contact) {
@@ -63,7 +66,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IMAGE, contact._image); // Contact Phone
 
                 // Inserting Row
-                db.insert(TABLE_IMAGES, null, values);
+                db.insert(TABLE_CONTACTS, null, values);
                 db.close(); // Closing database connection
         }
 
@@ -71,7 +74,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         PojoClass getContact(int id) {
                 SQLiteDatabase db = this.getReadableDatabase();
 
-                Cursor cursor = db.query(TABLE_IMAGES, new String[] { KEY_ID,
+                Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
                                 KEY_NAME, KEY_IMAGE }, KEY_ID + "=?",
                         new String[] { String.valueOf(id) }, null, null, null, null);
                 if (cursor != null)
@@ -120,7 +123,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IMAGE, contact.getImage());
 
                 // updating row
-                return db.update(TABLE_IMAGES, values, KEY_ID + " = ?",
+                return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
                         new String[] { String.valueOf(contact.getID()) });
 
         }
@@ -128,14 +131,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // Deleting single contact
         public void deleteContact(PojoClass contact) {
                 SQLiteDatabase db = this.getWritableDatabase();
-                db.delete(TABLE_IMAGES, KEY_ID + " = ?",
+                db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
                         new String[] { String.valueOf(contact.getID()) });
                 db.close();
         }
 
-        // Getting image Count
+        // Getting contacts Count
         public int getContactsCount() {
-                String countQuery = "SELECT  * FROM " + TABLE_IMAGES;
+                String countQuery = "SELECT  * FROM " + TABLE_CONTACTS;
                 SQLiteDatabase db = this.getReadableDatabase();
                 Cursor cursor = db.rawQuery(countQuery, null);
                 cursor.close();

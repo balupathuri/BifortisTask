@@ -40,9 +40,10 @@ public class MainActivity extends Activity {
          * create DatabaseHandler object
          */
         db = new DataBaseHandler(this);
-        /**
-         * Reading and getting all records from database
-         */
+
+     /**
+      *   Reading all data from Data
+     */
         List<PojoClass> contacts = db.getAllContacts();
         for (PojoClass cn : contacts) {
             String log = "ID:" + cn.getID() + " Name: " + cn.getName()
@@ -51,15 +52,11 @@ public class MainActivity extends Activity {
             // Writing Contacts to log
             Log.d("Result: ", log);
             // add contacts data in arrayList
+
             imageArry.add(cn);
 
+
         }
-        /**
-         * Set Data base Item into listview
-         */
-        imageAdapter = new MyAdapterClass(this, R.layout.screen_list,
-                imageArry);
-        dataList.setAdapter(imageAdapter);
 
         /**
          * open dialog for choose camera/gallery
@@ -93,14 +90,22 @@ public class MainActivity extends Activity {
         addImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.show();
-                dataList.setVisibility(View.GONE);
+
             }
         });
         viewImage=(Button)findViewById(R.id.btnView);
 
         viewImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                dataList.setVisibility(View.VISIBLE);
+
+
+                /**
+                 * Set Data base Item into listview
+                 */
+                imageAdapter = new MyAdapterClass(MainActivity.this, R.layout.screen_list,
+                        imageArry);
+                dataList.setAdapter(imageAdapter);
+
 
             }
         });
@@ -109,9 +114,6 @@ public class MainActivity extends Activity {
 
     }
 
-    /**
-     * On activity result
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK)
